@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Elian Garcia — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0b0e14;
+    --surface: #11151f;
+    --card: #161b27;
+    --border: rgba(255,255,255,0.07);
+    --accent: #22c55e;
+    --accent2: #10b981;
+    --text: #e8eaf0;
+    --muted: #7a8499;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2.5rem; background: rgba(11,14,20,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; letter-spacing: 0.05em; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  #hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding: 7rem 2.5rem 4rem; overflow: hidden; }
+  .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(34,197,94,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(34,197,94,0.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+  .hero-glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(34,197,94,0.1) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 1; max-width: 860px; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; padding: 0.35rem 0.9rem; border: 1px solid rgba(34,197,94,0.3); border-radius: 100px; background: rgba(34,197,94,0.06); }
+  .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 8vw, 5.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+  h1 .line2 { display: block; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-desc { font-size: 1.15rem; color: var(--muted); max-width: 580px; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.8; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent); color: #fff; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.9rem; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.9rem; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
+  section { padding: 6rem 2.5rem; position: relative; z-index: 1; }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .section-sub { color: var(--muted); font-size: 1rem; max-width: 520px; margin-bottom: 3rem; font-weight: 300; }
+  #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--muted); font-weight: 300; margin-bottom: 1.25rem; line-height: 1.85; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+  .stat-number { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+  .skill-card:hover { border-color: rgba(34,197,94,0.3); transform: translateY(-2px); }
+  .skill-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(34,197,94,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1rem; }
+  .skill-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .tag { font-size: 0.72rem; font-weight: 500; padding: 0.25rem 0.6rem; border-radius: 100px; background: rgba(34,197,94,0.1); color: #86efac; border: 1px solid rgba(34,197,94,0.15); }
+  #experience { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), transparent); }
+  .timeline-item { position: relative; padding-bottom: 2.5rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -2.37rem; top: 0.35rem; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
+  .timeline-date { font-size: 0.75rem; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .timeline-item h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+  .timeline-company { font-size: 0.875rem; color: var(--muted); margin-bottom: 0.75rem; }
+  .timeline-desc { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.75; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .project-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0; transition: opacity 0.2s; }
+  .project-card:hover { border-color: rgba(34,197,94,0.25); transform: translateY(-3px); }
+  .project-card:hover::after { opacity: 1; }
+  .project-type { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
+  .project-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
+  .project-card p { font-size: 0.875rem; color: var(--muted); font-weight: 300; line-height: 1.75; }
+  #education { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 1rem; }
+  .edu-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(34,197,94,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+  .edu-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+  .edu-school { font-size: 0.875rem; color: var(--accent); margin-bottom: 0.5rem; font-weight: 500; }
+  .edu-desc { font-size: 0.875rem; color: var(--muted); font-weight: 300; }
+  .contact-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; text-align: center; }
+  .contact-card h2 { margin-bottom: 0.75rem; }
+  .contact-card p { color: var(--muted); font-weight: 300; margin-bottom: 2rem; }
+  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  footer { padding: 2rem 2.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--muted); position: relative; z-index: 1; }
+  .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.25rem; }
+    #hero { padding: 6rem 1.25rem 3rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-card { padding: 2rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">EG<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content fade-up">
+    <div class="hero-eyebrow"><span class="dot"></span> Available for new opportunities</div>
+    <h1>Elian Garcia<span class="line2">Tech &amp; Ops Pro.</span></h1>
+    <p class="hero-desc">Inventory systems specialist, IT support veteran, and aspiring frontend developer — bridging the gap between operations and technology. Based in Greeley, CO. Remote-ready.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in touch →</a>
+      <a href="#projects" class="btn-outline">View my work</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid fade-up">
+      <div class="about-text">
+        <div class="section-label">About me</div>
+        <h2>Where operations meets technology</h2>
+        <p>I've spent nearly <strong>three years at Vestas Wind Systems</strong> managing enterprise inventory with SAP and Apriso — driving accuracy improvements, building onboarding systems, and making complex operations run smoother.</p>
+        <p>Before that, I spent two years doing <strong>fully remote IT customer support</strong> at Intuit, helping small business owners troubleshoot QuickBooks end to end. I know how to work independently, communicate clearly, and keep customers happy.</p>
+        <p>Now I'm doubling down on the tech side — pursuing a <strong>dual CS + Business/AI degree</strong> at Colorado Technical University while building frontend skills in HTML, CSS, JavaScript, and React.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card"><div class="stat-number">3+</div><div class="stat-label">Years in enterprise inventory ops</div></div>
+        <div class="stat-card"><div class="stat-number">2yr</div><div class="stat-label">Remote IT support experience</div></div>
+        <div class="stat-card"><div class="stat-number">2028</div><div class="stat-label">Dual degree expected (CTU)</div></div>
+        <div class="stat-card"><div class="stat-number">SAP</div><div class="stat-label">Apriso · Excel · QuickBooks · Git</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label fade-up">What I bring</div>
+    <h2 class="fade-up">Core skills</h2>
+    <p class="section-sub fade-up">A unique blend of operations expertise, technical support, and growing software development skills.</p>
+    <div class="skills-grid fade-up">
+      <div class="skill-card">
+        <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <h3>ERP &amp; Inventory Systems</h3>
+        <p style="font-size:0.85rem;color:var(--muted);font-weight:300;">Hands-on daily use of enterprise systems in a live manufacturing environment.</p>
+        <div class="skill-tags"><span class="tag">SAP</span><span class="tag">Apriso</span><span class="tag">Cycle Counting</span><span class="tag">Asset Tracking</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg></div>
+        <h3>AI &amp; Emerging Tech</h3>
+        <p style="font-size:0.85rem;color:var(--muted);font-weight:300;">Active user of AI tools in daily workflows, with coursework in AI/ML fundamentals.</p>
+        <div class="skill-tags"><span class="tag">Prompt Engineering</span><span class="tag">LLM Workflows</span><span class="tag">AI Tools</span><span class="tag">Automation</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <h3>Frontend Development</h3>
+        <p style="font-size:0.85rem;color:var(--muted);font-weight:300;">Currently building real projects with modern web technologies.</p>
+        <div class="skill-tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">GitHub</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+        <h3>Technical Support</h3>
+        <p style="font-size:0.85rem;color:var(--muted);font-weight:300;">2 years of remote Tier 1–2 IT support with proven customer satisfaction metrics.</p>
+        <div class="skill-tags"><span class="tag">QuickBooks</span><span class="tag">Remote Support</span><span class="tag">Troubleshooting</span><span class="tag">Ticketing</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <h3>Data &amp; Reporting</h3>
+        <p style="font-size:0.85rem;color:var(--muted);font-weight:300;">Building dashboards and tracking KPIs to support operational decisions.</p>
+        <div class="skill-tags"><span class="tag">Excel</span><span class="tag">Pivot Tables</span><span class="tag">KPI Reporting</span><span class="tag">Outlook</span></div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <h3>Documentation &amp; Training</h3>
+        <p style="font-size:0.85rem;color:var(--muted);font-weight:300;">Created SOPs and onboarding guides used by real teams at Vestas.</p>
+        <div class="skill-tags"><span class="tag">SOPs</span><span class="tag">Onboarding Docs</span><span class="tag">Process Design</span><span class="tag">Training</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label fade-up">Where I've been</div>
+    <h2 class="fade-up">Work experience</h2>
+    <p class="section-sub fade-up">From warehouse floors to remote desks — a career built on systems thinking and technical ownership.</p>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="timeline-date">2022 – Present</div>
+        <h3>Inventory Specialist / Logistics Inventory Manager</h3>
+        <div class="timeline-company">Vestas Wind Systems · Greeley, CO</div>
+        <div class="timeline-desc">Managing end-to-end inventory operations using SAP and Apriso across wind turbine manufacturing and service. Led recovery initiatives, built onboarding documentation, and implemented workflow improvements. Collaborate cross-functionally with logistics, procurement, and operations teams.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2020 – 2022</div>
+        <h3>QuickBooks IT Customer Service Associate</h3>
+        <div class="timeline-company">Intuit · Remote</div>
+        <div class="timeline-desc">Provided fully remote Tier 1–2 technical support for QuickBooks. Resolved software, billing, data migration, and account access issues while maintaining high satisfaction scores. Contributed to internal knowledge base articles to reduce repeat tickets.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Prior Experience</div>
+        <h3>Warehouse &amp; Fulfillment Roles</h3>
+        <div class="timeline-company">Amazon · Costco Wholesale · Colorado</div>
+        <div class="timeline-desc">High-volume fulfillment and receiving operations. Built foundational knowledge of barcode scanning, WMS systems, inventory auditing, and supply chain logistics.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">Ongoing</div>
+        <h3>Auto Mechanic &amp; Technician</h3>
+        <div class="timeline-company">Family Dealership &amp; Auto Shop · Colorado</div>
+        <div class="timeline-desc">Diagnostics, mechanical repairs, and maintenance on gas and hybrid vehicles. Exploring EV diagnostics and OBD programming interfaces.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label fade-up">What I'm building</div>
+    <h2 class="fade-up">Projects</h2>
+    <p class="section-sub fade-up">Real projects — built for portfolios, for fun, and for pitching one day.</p>
+    <div class="projects-grid fade-up">
+      <div class="project-card">
+        <div class="project-type">Game Development · Unity / C#</div>
+        <h3>Webbound: Hero's Surge</h3>
+        <p>Spider-Man-inspired Unity fan game demonstrating game loop design, object-oriented programming, physics systems, and version control practices.</p>
+        <div class="skill-tags" style="margin-top:1rem;"><span class="tag">Unity</span><span class="tag">C#</span><span class="tag">GitHub</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">Web App · In Progress</div>
+        <h3>Inventory Tracker App</h3>
+        <p>Browser-based inventory management tool built from scratch — leveraging real domain expertise from Vestas to solve actual problems I face at work.</p>
+        <div class="skill-tags" style="margin-top:1rem;"><span class="tag">HTML/CSS/JS</span><span class="tag">React</span><span class="tag">SAP-inspired</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">Hardware / IoT Concept</div>
+        <h3>Raspberry Pi Car Shutdown System</h3>
+        <p>Proximity-based automatic vehicle shutdown using a Raspberry Pi — designed to prevent unauthorized vehicle movement, combining hardware with scripting.</p>
+        <div class="skill-tags" style="margin-top:1rem;"><span class="tag">Raspberry Pi</span><span class="tag">Python</span><span class="tag">IoT</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">Sustainability Concept</div>
+        <h3>EV Battery Heated Roads</h3>
+        <p>Infrastructure proposal exploring recycled EV batteries for road heating to improve winter safety — developed as a pitch to Vestas or city partners.</p>
+        <div class="skill-tags" style="margin-top:1rem;"><span class="tag">EV Tech</span><span class="tag">Sustainability</span><span class="tag">Innovation</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">Automation Concept</div>
+        <h3>Automated Probation Call System</h3>
+        <p>System design concept for automating compliance check-in calls — reducing manual overhead through scheduled automated outreach and smart routing.</p>
+        <div class="skill-tags" style="margin-top:1rem;"><span class="tag">Automation</span><span class="tag">System Design</span><span class="tag">API Concepts</span></div>
+      </div>
+      <div class="project-card">
+        <div class="project-type">Content Creation</div>
+        <h3>Marvel Rivals Content</h3>
+        <p>Building a content creation presence around Marvel Rivals gameplay — developing video editing, thumbnail design, and audience-building skills.</p>
+        <div class="skill-tags" style="margin-top:1rem;"><span class="tag">Video Editing</span><span class="tag">Content Strategy</span><span class="tag">Gaming</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label fade-up">Always learning</div>
+    <h2 class="fade-up">Education</h2>
+    <p class="section-sub fade-up">Pursuing two degrees simultaneously while working full-time.</p>
+    <div class="fade-up">
+      <div class="edu-card">
+        <div class="edu-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <div>
+          <h3>B.S. Computer Science &amp; Engineering</h3>
+          <div class="edu-school">Colorado Technical University · Expected February 2028</div>
+          <div class="edu-desc">Software engineering, data structures, algorithms, systems design, and IT governance (COBIT). Building toward frontend development and AI tooling roles.</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <div>
+          <h3>B.S. Business Administration &amp; Artificial Intelligence</h3>
+          <div class="edu-school">Campus University · Expected February 2028</div>
+          <div class="edu-desc">Business strategy, AI fundamentals, machine learning concepts, and the intersection of operations and emerging technology.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner fade-up">
+    <div class="contact-card">
+      <div class="section-label">Let's connect</div>
+      <h2>Open to new opportunities</h2>
+      <p style="color:var(--muted);font-weight:300;margin-bottom:2rem;">Whether it's AI consulting, tech support, inventory systems, or frontend dev — I'm ready for the next challenge. Let's talk.</p>
+      <div class="contact-links">
+        <a href="mailto:Elian.garcia0013@gmail.com" class="btn-primary">Elian.garcia0013@gmail.com</a>
+        <a href="https://linkedin.com/in/eliangarcia" class="btn-outline" target="_blank">LinkedIn →</a>
+        <a href="https://github.com/eliangarcia" class="btn-outline" target="_blank">GitHub →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><p>Built by Elian Garcia · Greeley, CO · 2025</p></footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
